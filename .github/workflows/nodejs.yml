@@ -20,11 +20,15 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        cd devops-practice-node-app
+        npm install
 
     - name: Start server and test it
       run: |
+        cd devops-practice-node-app
         node app.js &
         sleep 3
         curl -f http://localhost:3000 || exit 1
+
 
