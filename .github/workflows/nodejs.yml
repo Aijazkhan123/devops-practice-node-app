@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-test-deploy:
+  build-test-docker:
     runs-on: ubuntu-latest
 
     env:
@@ -25,16 +25,15 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
-      run: |
-        npm install
+      run: npm install
 
-    - name: Run tests (if any)
+    - name: Run basic test
       run: |
         node app.js &
         sleep 3
         curl -f http://localhost:3000 || exit 1
 
-    - name: Set up Docker
+    - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
     - name: Log in to DockerHub
